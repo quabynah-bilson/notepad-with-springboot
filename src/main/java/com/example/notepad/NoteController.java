@@ -2,7 +2,9 @@ package com.example.notepad;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -13,18 +15,26 @@ public class NoteController {
     final NoteService service;
 
     @GetMapping("/notes")
-    List<NoteEntity> getNotes() {
-        return service.getNotes();
+    ResponseEntity<List<NoteEntity>> getNotes() {
+        return ResponseEntity.ok(service.getNotes());
     }
 
     @PostMapping("/notes")
-    NoteEntity createNote(@RequestBody CreateNoteModel body) {
-        return service.createNoteEntity(body);
+    ResponseEntity<NoteEntity> createNote(@RequestBody CreateNoteModel body) {
+        try {
+            return ResponseEntity.ok(service.createNoteEntity(body));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @PutMapping("/notes/{id}")
-    NoteEntity updateNote(@PathVariable("id") String id, @RequestBody CreateNoteModel body) {
-        return service.updateNoteEntity(id, body);
+    ResponseEntity<NoteEntity> updateNote(@PathVariable("id") String id, @RequestBody CreateNoteModel body) {
+        try {
+            return ResponseEntity.ok(service.updateNoteEntity(id, body));
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Note with id " + id + " not found", e);
+        }
     }
 
     @DeleteMapping("/notes/{id}")
@@ -32,10 +42,10 @@ public class NoteController {
         service.deleteNote(id);
     }
 
-    @GetMapping("notes/{id}")
-    NoteEntity getNoteById(@PathVariable("id") String id) {
+    @GetMapping("/notes/{id}")
+    ResponseEntity<NoteEntity> getNoteById(@PathVariable("id") String id) {
         try {
-            return service.getNoteById(id);
+            return ResponseEntity.ok(service.getNoteById(id));
         } catch (RuntimeException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Note with id " + id + " not found", e);
         }
