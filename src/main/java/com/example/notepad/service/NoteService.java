@@ -1,5 +1,8 @@
-package com.example.notepad;
+package com.example.notepad.service;
 
+import com.example.notepad.entity.NoteEntity;
+import com.example.notepad.model.CreateNoteModel;
+import com.example.notepad.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

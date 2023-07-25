@@ -1,4 +1,4 @@
-package com.example.notepad;
+package com.example.notepad.model;
 
 /**
  * Represents a model for creating a new note.

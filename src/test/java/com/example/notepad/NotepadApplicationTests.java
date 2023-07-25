@@ -10,4 +10,11 @@ class NotepadApplicationTests {
     void contextLoads() {
     }
 
+    // write a test for the getNotes() method
+    // use the following snippet as a guide:
+    @Test
+    void getNotes() {
+
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.example.notepad;
+package com.example.notepad.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

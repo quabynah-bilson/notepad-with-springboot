@@ -1,5 +1,8 @@
-package com.example.notepad;
+package com.example.notepad.controller;
 
+import com.example.notepad.service.NoteService;
+import com.example.notepad.entity.NoteEntity;
+import com.example.notepad.model.CreateNoteModel;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
